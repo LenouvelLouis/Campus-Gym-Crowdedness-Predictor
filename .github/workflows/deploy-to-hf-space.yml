@@ -53,7 +53,7 @@ jobs:
 
       - name: Commit and push to Space
         env:
-          HF_TOKEN: ${{ secrets.GF_TOKEN }}
+          GF_TOKEN: ${{ secrets.GF_TOKEN }}
         working-directory: space
         run: |
           git add -A
