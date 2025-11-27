@@ -1,5 +1,6 @@
-huggingface-hub==0.24.6
+huggingface-hub>=0.26.0
 pandas
 scikit-learn
 joblib
 numpy
+gradio>=5.0.0
