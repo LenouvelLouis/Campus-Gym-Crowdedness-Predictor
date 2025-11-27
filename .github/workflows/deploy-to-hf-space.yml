@@ -33,7 +33,7 @@ jobs:
 
       - name: Clone your Hugging Face Space
         env:
-          HF_TOKEN: ${{ secrets.GF_TOKEN }}
+          GF_TOKEN: ${{ secrets.GF_TOKEN }}
         run: |
           rm -rf space
           git clone https://user:${GF_TOKEN}@huggingface.co/spaces/${HF_USERNAME}/${SPACE_NAME} space
