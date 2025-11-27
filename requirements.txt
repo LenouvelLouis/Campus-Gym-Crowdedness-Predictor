@@ -1,6 +1,2 @@
-gradio>=5.0.0
-huggingface-hub<0.25.0
 pandas
 scikit-learn
-joblib
-numpy
