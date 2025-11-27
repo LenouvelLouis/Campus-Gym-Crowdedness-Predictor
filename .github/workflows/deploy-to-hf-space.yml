@@ -1,0 +1,65 @@
+name: Deploy to Hugging Face Space
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      HF_USERNAME: LenouvelLouisDev
+      SPACE_NAME: Gym-Traffic-API
+      PUBLISH_PATHS: |
+        app.py
+        requirements.txt
+        best_gym_crowd_model.pkl
+        README.md
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Git LFS
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git-lfs
+          git lfs install
+
+      - name: Configure Git identity
+        run: |
+          git config --global user.email "ci@github.actions"
+          git config --global user.name "GitHub Actions CI"
+
+      - name: Clone your Hugging Face Space
+        env:
+          HF_TOKEN: ${{ secrets.GF_TOKEN }}
+        run: |
+          rm -rf space
+          git clone https://user:${GF_TOKEN}@huggingface.co/spaces/${HF_USERNAME}/${SPACE_NAME} space
+
+      - name: Copy project files into Space
+        run: |
+          for p in $PUBLISH_PATHS; do
+            echo "Copying $p"
+            cp -R "$p" space/
+          done
+
+      - name: Track large files (model.pkl)
+        working-directory: space
+        run: |
+          git lfs track "*.pkl" || true
+          git add .gitattributes
+
+      - name: Commit and push to Space
+        env:
+          HF_TOKEN: ${{ secrets.GF_TOKEN }}
+        working-directory: space
+        run: |
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "🚀 Auto-deploy from GitHub"
+            git push origin main
+          fi
