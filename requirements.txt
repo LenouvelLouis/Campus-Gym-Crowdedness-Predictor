@@ -1,5 +1,6 @@
-scikit-learn
+gradio>=5.0.0
+huggingface_hub>=0.25.0
 pandas
-numpy
-gradio
+scikit-learn
 joblib
+numpy
