@@ -1,12 +1,14 @@
-title: Campus Gym Crowd Predictor 
-emoji:🏋️ 
-colorFrom: blue 
-colorTo: indigo 
-sdk: gradio 
-sdk_version: 5.0.1 
-app_file: app.py 
-pinned: false 
+---
+title: Campus Gym Crowd Predictor
+emoji: 🏋️
+colorFrom: blue
+colorTo: indigo
+sdk: gradio
+sdk_version: 5.0.1
+app_file: app.py
+pinned: false
 license: mit
+---
 
 # 🏋️ Campus Gym Crowdedness Predictor
 
